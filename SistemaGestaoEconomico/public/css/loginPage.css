@@ -1,0 +1,36 @@
+
+
+.main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.loginSection{
+    background-color: #FFEA00;
+    padding: 2rem 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+input, label{
+    background-color: white;
+    color: #1c1c1c;
+    width: 85%;
+}
+
+button{
+    background-color: #1c1c1c;
+    margin-top: 0.5rem;
+    width: 83%;
+    color: white;
+    transition: 0.3s;
+}
+
+button:hover{
+    cursor: pointer;
+    color: #1c1c1c;
+    background-color: #FFEA00;
+}
