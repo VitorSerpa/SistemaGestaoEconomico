@@ -1,0 +1,23 @@
+header{
+    background-color: #FFEA00;
+    height: 18vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navBar, a{
+    background-color: transparent;
+}
+
+.navBar a{
+    margin: 1.5rem;
+    font-size: 25px;
+    color: #1c1c1c;
+    text-decoration: none;
+}
+
+.navBar a:hover{
+    text-decoration: underline;
+}
+

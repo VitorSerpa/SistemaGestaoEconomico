@@ -1,0 +1,21 @@
+h1{
+    text-align: center;
+    color: #FFEA00;
+    margin: 1.5rem;
+}
+
+.grupo-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.grupo{
+    display: flex;
+    flex-direction: column;
+    color: white;
+    background-color: #ffea007e;
+    margin: 2rem;
+    width: 25%;
+    
+}

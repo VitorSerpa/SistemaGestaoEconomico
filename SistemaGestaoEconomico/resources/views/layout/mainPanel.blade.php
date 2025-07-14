@@ -9,9 +9,9 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto"rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet">
 
-    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
 
 </head>
 
@@ -19,10 +19,9 @@
     @include('components.Header')
 
     <main>
-        @yield('content')
+        <h1>aqui</h1>
     </main>
 
-    @include('components.Footer')
 </body>
 
 </html>
