@@ -15,9 +15,9 @@
         <nav class="navBar">
             <a href="/view/mainPanel">Início</a>
             <a href="/view/grupoEconomico">Grupos Ecônomicos</a>
-            <a href="/">Bandeiras Comerciais</a>
-            <a href="/">Unidades</a>
-            <a href="/">Colaboradores</a>
+            <a href="/view/bandeiras">Bandeiras Comerciais</a>
+            <a href="/view/unidades">Unidades</a>
+            <a href="/view/colaboradores">Colaboradores</a>
         </nav>
         
     </header>

@@ -12,7 +12,10 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->validateCsrfTokens(except: [
-            'http://localhost:8080/grupoEconomico'
+            'http://localhost:8080/grupoEconomico',
+            'http://localhost:8080/bandeira',
+            'http://localhost:8080/bandeiras',
+            'http://localhost:8080/unidades'
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

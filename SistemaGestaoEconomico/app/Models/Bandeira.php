@@ -3,15 +3,18 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\GrupoEconomico;
 
-class GrupoEconomico extends Model
+class Bandeira extends Model
 {
-    protected $table = "grupoEconomico";
+    protected $table = "Bandeira";
 
-    protected $primaryKey = "id_grupo";
+    protected $primaryKey = "id_bandeira";
+
 
     protected $fillable = [
-        "nome_grupo",
+        "nome_bandeira",
+        "id_grupo",
         "data_criacao",
         "ultima_atualizacao"
     ];
@@ -23,9 +26,10 @@ class GrupoEconomico extends Model
         return $this->belongsTo(GrupoEconomico::class, 'id_grupo', 'id_grupo');
     }
 
-    public function usuarios()
+    public function unidades()
     {
-        return $this->belongsToMany(User::class, 'grupo_economico_user', 'id_grupo', 'user_id');
+        return $this->hasMany(Unidade::class, 'bandeira_id', 'id_bandeira');
     }
 }
+
 

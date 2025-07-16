@@ -4,26 +4,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 class LoginController extends Controller
 {
-    public function login(Request $request)
+    public function autenticar(Request $request)
     {
-        $credenciais = $request->validate([
-            "usuario" => ["required"],
-            "password" => ["required"]
+        $dados = $request->validate([
+            'username' => 'required|string',
+            'password' => 'required|string',
         ]);
 
-        if (
-            Auth::attempt([
-                'name' => $credenciais['usuario'],
-                'password' => $credenciais['password'],
-            ])
-        ) {
-            $request->session()->regenerate();
-            return redirect()->intended("mainPanel");
+        $user = User::where('username', $dados['username'])->first();
+
+        if ($user && Hash::check($dados['password'], $user->password)) {
+            Auth::login($user);
+            return redirect()->route('grupoEconomico.view');
         }
 
-        return redirect()->back()->with("error", "Usuário ou senha inválido");
+        return back()->withErrors(['login' => 'Usuário ou senha incorretos']);
     }
 }

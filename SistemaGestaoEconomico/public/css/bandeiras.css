@@ -87,15 +87,6 @@ h3, p{
     width: 60%;
 }
 
-.input {
-    height: 2rem;
-    width: 35%;
-    border: #FFEA00 1px solid;
-    padding: 0.5rem;
-    color: white;
-    font-size: 20px;
-}
-
 
 .criarGrupoDiv {
     position: fixed;
@@ -155,4 +146,11 @@ h3, p{
 
 #buttonCreate{
     border-radius: 0px;
+}
+
+.selectInput{
+    width: 90%;
+    height: 2rem;
+    border: 1px solid #FFEA00;
+    color: white;
 }
