@@ -10,7 +10,7 @@ use App\Models\GrupoEconomico;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-
+use App\Services\RegisterClass;
 
 class GrupoEconomicoController extends Controller
 {
@@ -47,6 +47,8 @@ class GrupoEconomicoController extends Controller
                 'data_criacao' => Carbon::now(),
                 'ultima_atualizacao' => Carbon::now(),
             ]);
+
+            RegisterClass::anotateAction("POST", "Grupo Economico");
 
             return redirect()->back()->with('mensagem', 'Grupo criado!');
         } catch (QueryException $e) {
@@ -115,6 +117,8 @@ class GrupoEconomicoController extends Controller
             $grupo->bandeiras()->delete();
 
             $grupo->delete();
+
+            RegisterClass::anotateAction('DELETE', "Grupo Economico");
 
             return redirect()->back()->with('mensagem', 'Grupo Excluido!');
 

@@ -21,7 +21,6 @@ Route::get('/view/mainPanel', function () {
 // Grupo Econômico
 Route::get('/view/grupoEconomico', [GrupoEconomicoController::class, 'exibirGrupos'])->name('grupoEconomico.view');
 Route::post("/grupoEconomico", [GrupoEconomicoController::class, "postGrupoEconomico"])->name("grupoEconomico.criar");
-Route::get("/grupoEconomico", [GrupoEconomicoController::class, "getGrupoEconomico"])->name("grupoEconomico");
 Route::delete("/grupoEconomico", [GrupoEconomicoController::class, "deleteGrupoEconomico"])->name("grupoEconomico.delete");
 Route::put("/grupoEconomico", [GrupoEconomicoController::class, "updateGrupoEconomico"])->name("grupoEconomico.atualizar");
 

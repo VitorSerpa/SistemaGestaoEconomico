@@ -160,7 +160,7 @@
 
                 const { data, hora } = formatarData(dataBruta);
 
-                document.getElementById("novo_nome").value = nome;
+                document.getElementById("novoNomeInput").value = nome;
 
                 document.getElementById("gerenciarNome").textContent = nome;
                 document.getElementById("gerenciarId").textContent = "ID: " + id;
