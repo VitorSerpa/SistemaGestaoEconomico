@@ -17,7 +17,7 @@
             <a href="/view/bandeiras">Bandeiras Comerciais</a>
             <a href="/view/unidades">Unidades</a>
             <a href="/view/colaboradores">Colaboradores</a>
-            <a href="/view/colaboradores">Relatórios</a>
+            <a href="/view/relatorios">Relatórios</a>
         </nav>
         
     </header>

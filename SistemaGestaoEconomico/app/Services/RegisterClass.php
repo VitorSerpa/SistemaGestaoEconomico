@@ -7,15 +7,15 @@ use Carbon\Carbon;
 class RegisterClass
 {
 
-    public static function anotateAction($action, $group)
+    public static function anotateAction($object, $action, $group)
     {
         Register::create([
             "grupo" => $group,
-            "acao" => "$action",
-            "hora" => Carbon::now()
+            "acao" => $action,
+            "data" => Carbon::now(),
+            "objeto" => $object
         ]);
     }
 
-
-
+    
 }

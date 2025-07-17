@@ -15,7 +15,7 @@
     <main class="main">
         <h1>Unidades</h1>
         <div class="search-container">
-            <input type="text" placeholder="ID, Nome ou Grupo" class="input" oninput="filtrarGrupos(this.value)">
+            <input type="text" placeholder="ID ou Nome" class="input" oninput="filtrarGrupos(this.value)">
 
             <button class="buttonOption" id="buttonCreate">Criar nova Unidade</button>
         </div>
@@ -53,7 +53,6 @@
 
                     </section>
                         <button class="buttonOption" type="submit">Gerenciar</button>
-                        <button class="buttonOption">Ver Colaboradores</button>
                 </div>
             @endforeach
         </div>

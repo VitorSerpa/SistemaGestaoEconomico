@@ -8,6 +8,8 @@ use App\Models\Bandeira;
 use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use Exception;
+use App\Services\RegisterClass;
+
 class UnidadeController extends Controller
 {
 
@@ -45,6 +47,8 @@ class UnidadeController extends Controller
                 'ultima_atualizacao' => Carbon::now(),
             ]);
 
+            RegisterClass::anotateAction( $dados["nome_fantasia"] ,"POST", "Unidade");
+
             return redirect()->back()->with('mensagem', 'Unidade criada! ');
 
 
@@ -71,6 +75,8 @@ class UnidadeController extends Controller
             }
 
             $unidade->delete();
+
+            RegisterClass::anotateAction( $unidade["nome_fantasia"] ,"DELETE", "Unidade");
 
             return redirect()->back()->with('mensagem', 'Unidade criado com sucesso!');
 
@@ -140,6 +146,8 @@ class UnidadeController extends Controller
             $unidade->id_bandeira = $request->input('id_bandeira');
 
             $unidade->save();
+
+            RegisterClass::anotateAction( $unidade["nome_fantasia"] ,"UPDATE", "Unidade");
 
             return redirect()->back()->with('mensagem', 'Unidade atualizada com sucesso!');
 

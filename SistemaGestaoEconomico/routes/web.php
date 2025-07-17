@@ -4,19 +4,9 @@ use App\Http\Controllers\BandeiraController;
 use App\Http\Controllers\ColaboradorController;
 use App\Http\Controllers\GrupoEconomicoController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RelatoriosController;
 use App\Http\Controllers\UnidadeController;
 use Illuminate\Support\Facades\Route;
-
-Route::get('/login', function () {
-    return view('layout.loginPage');
-})->name('login');
-
-Route::post('/login', [LoginController::class, 'autenticar'])->name('login.auth');
-
-
-Route::get('/view/mainPanel', function () {
-    return view('layout.mainPanel');
-})->name('main.panel');
 
 // Grupo Econômico
 Route::get('/view/grupoEconomico', [GrupoEconomicoController::class, 'exibirGrupos'])->name('grupoEconomico.view');
@@ -42,3 +32,5 @@ Route::get("/view/colaboradores", [ColaboradorController::class, "exibirColabora
 Route::put("/colaborador", [ColaboradorController::class, "updateColaborador"])->name("colaborador.atualizar");
 Route::delete("/colaborador", [ColaboradorController::class, "deleteColaborador"])->name("colaborador.delete");
 
+//Relatorios
+Route::get("/view/relatorios", [RelatoriosController::class , "exibirRelatorios"])->name("relatorios.get");

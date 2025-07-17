@@ -48,7 +48,7 @@ class GrupoEconomicoController extends Controller
                 'ultima_atualizacao' => Carbon::now(),
             ]);
 
-            RegisterClass::anotateAction("POST", "Grupo Economico");
+            RegisterClass::anotateAction( $dados["nome_grupo"] ,"POST", "Grupo Economico");
 
             return redirect()->back()->with('mensagem', 'Grupo criado!');
         } catch (QueryException $e) {
@@ -101,6 +101,8 @@ class GrupoEconomicoController extends Controller
 
             $grupo = GrupoEconomico::with('bandeiras.unidades.colaboradores')->find($idDelete);
 
+            $nome_grupo = $grupo->nome_grupo;
+
             if (!$grupo) {
                 return response()->json([
                     "mensagem" => "Grupo não encontrado"
@@ -118,7 +120,7 @@ class GrupoEconomicoController extends Controller
 
             $grupo->delete();
 
-            RegisterClass::anotateAction('DELETE', "Grupo Economico");
+            RegisterClass::anotateAction($nome_grupo , 'DELETE', "Grupo Economico");
 
             return redirect()->back()->with('mensagem', 'Grupo Excluido!');
 
@@ -150,6 +152,8 @@ class GrupoEconomicoController extends Controller
 
             $grupo->nome_grupo = $request->input('nome_grupo');
             $grupo->save();
+
+            RegisterClass::anotateAction($grupo->nome_grupo , 'UPDATE', "Grupo Economico");
 
             return redirect()->back()->with('mensagem', 'Grupo Atualizado!');
 

@@ -14,5 +14,6 @@ class Register extends Model
         'grupo',
         'acao',
         'hora',
+        'objeto',
     ];
 }

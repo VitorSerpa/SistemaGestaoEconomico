@@ -8,6 +8,7 @@ use App\Models\GrupoEconomico;
 use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use Exception;
+use App\Services\RegisterClass;
 class BandeiraController extends Controller
 {
     public function postBandeira(Request $request)
@@ -25,6 +26,8 @@ class BandeiraController extends Controller
                 'data_criacao' => Carbon::now(),
                 'ultima_atualizacao' => Carbon::now(),
             ]);
+
+            RegisterClass::anotateAction($dados["nome_bandeira"], "POST", "Bandeira");
 
             return redirect()->back()->with('mensagem', 'Bandeira criado! ');
 
@@ -48,6 +51,8 @@ class BandeiraController extends Controller
                     "mensagem" => "Bandeira não encontrado"
                 ]);
             }
+
+            RegisterClass::anotateAction($unidade->nome_bandeira, "DELETE", "Bandeira");
 
             $unidade->delete();
 
@@ -84,6 +89,9 @@ class BandeiraController extends Controller
             $bandeira->nome_bandeira = $dadosValidados['novo_nome'];
             $bandeira->id_grupo = $dadosValidados['id_grupo_economico'];
             $bandeira->save();
+
+            RegisterClass::anotateAction($bandeira->nome_bandeira, "UPDATE", "Bandeira");
+
 
             return redirect()->back()->with('mensagem', 'Bandeira atualizada com sucesso!');
 

@@ -42,7 +42,6 @@
                     </section>
 
                     <button class="buttonOption gerenciarButton" type="button">Gerenciar</button>
-                    <button class="buttonOption">Ver Bandeiras</button>
                 </div>
             @endforeach
         </div>

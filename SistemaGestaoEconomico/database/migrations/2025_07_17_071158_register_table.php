@@ -12,8 +12,8 @@ return new class extends Migration {
     {
         Schema::create('logs_grupos', function (Blueprint $table) {
             $table->id();
-            $table->string('grupo');   // Pode ser ID ou nome do grupo
-            $table->string('acao');    // Ex: criado, atualizado, deletado
+            $table->string('grupo');   
+            $table->string('acao');   
             $table->timestamp('hora')->useCurrent(); 
         });
     }

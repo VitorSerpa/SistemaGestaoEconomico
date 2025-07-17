@@ -16,7 +16,7 @@
         <h1>Colaboradores</h1>
 
         <div class="search-container">
-            <input type="text" placeholder="ID, Nome ou Unidade" class="input" oninput="filtrarGrupos(this.value)" />
+            <input type="text" placeholder="ID ou Nome" class="input" oninput="filtrarGrupos(this.value)" />
             <button class="buttonOption" id="buttonCreate">Criar novo Colaborador</button>
         </div>
 
@@ -79,6 +79,11 @@
                     <button class="buttonOption" type="submit">Criar</button>
                     <button id="cancelButton" class="cancelButton" type="button">Cancelar</button>
                 </div>
+                @if(session('alert'))
+                    <script>
+                        alert('{{ session('alert') }}');
+                    </script>
+                @endif
             </form>
         </div>
 
