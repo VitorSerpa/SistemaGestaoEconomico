@@ -11,40 +11,6 @@ use Exception;
 class UnidadeController extends Controller
 {
 
-    protected function validar_cnpj($cnpj)
-    {
-        $cnpj = preg_replace('/[^0-9]/', '', (string) $cnpj);
-
-        // Valida tamanho
-        if (strlen($cnpj) != 14)
-            return false;
-
-        // Verifica se todos os digitos são iguais
-        if (preg_match('/(\d)\1{13}/', $cnpj))
-            return false;
-
-        // Valida primeiro dígito verificador
-        for ($i = 0, $j = 5, $soma = 0; $i < 12; $i++) {
-            $soma += $cnpj[$i] * $j;
-            $j = ($j == 2) ? 9 : $j - 1;
-        }
-
-        $resto = $soma % 11;
-
-        if ($cnpj[12] != ($resto < 2 ? 0 : 11 - $resto))
-            return false;
-
-        // Valida segundo dígito verificador
-        for ($i = 0, $j = 6, $soma = 0; $i < 13; $i++) {
-            $soma += $cnpj[$i] * $j;
-            $j = ($j == 2) ? 9 : $j - 1;
-        }
-
-        $resto = $soma % 11;
-
-        return $cnpj[13] == ($resto < 2 ? 0 : 11 - $resto);
-    }
-
     public function exibirUnidades()
     {
 
@@ -106,9 +72,8 @@ class UnidadeController extends Controller
 
             $unidade->delete();
 
-            return response()->json([
-                'mensagem' => 'Bandeira deletada com sucesso.'
-            ], 200);
+            return redirect()->back()->with('mensagem', 'Unidade criado com sucesso!');
+
         } catch (Exception $e) {
             return response()->json([
                 'mensagem' => 'Erro ao deletar a Unidade.',
@@ -117,7 +82,69 @@ class UnidadeController extends Controller
         }
     }
 
+    protected function validar_cnpj($cnpj)
+    {
+        $cnpj = preg_replace('/[^0-9]/', '', (string) $cnpj);
 
+        // Valida tamanho
+        if (strlen($cnpj) != 14)
+            return false;
 
+        // Verifica se todos os digitos são iguais
+        if (preg_match('/(\d)\1{13}/', $cnpj))
+            return false;
 
+        // Valida primeiro dígito verificador
+        for ($i = 0, $j = 5, $soma = 0; $i < 12; $i++) {
+            $soma += $cnpj[$i] * $j;
+            $j = ($j == 2) ? 9 : $j - 1;
+        }
+
+        $resto = $soma % 11;
+
+        if ($cnpj[12] != ($resto < 2 ? 0 : 11 - $resto))
+            return false;
+
+        // Valida segundo dígito verificador
+        for ($i = 0, $j = 6, $soma = 0; $i < 13; $i++) {
+            $soma += $cnpj[$i] * $j;
+            $j = ($j == 2) ? 9 : $j - 1;
+        }
+
+        $resto = $soma % 11;
+
+        return $cnpj[13] == ($resto < 2 ? 0 : 11 - $resto);
+    }
+
+    public function updateUnidade(Request $request)
+    {
+        try {
+            $id = $request->input('id_unidade');
+
+            $request->validate([
+                'nome_fantasia' => 'required|string|max:255',
+                'razao_social' => 'required|string|max:255',
+                'CNPJ' => 'required|string|max:20',
+                'id_bandeira' => 'required|integer',
+            ]);
+
+            $unidade = Unidade::find($id);
+
+            if (!$unidade) {
+                return redirect()->back()->withErrors(['error' => 'Unidade não encontrada.']);
+            }
+
+            $unidade->nome_fantasia = $request->input('nome_fantasia');
+            $unidade->razao_social = $request->input('razao_social');
+            $unidade->CNPJ = $request->input('CNPJ');
+            $unidade->id_bandeira = $request->input('id_bandeira');
+
+            $unidade->save();
+
+            return redirect()->back()->with('mensagem', 'Unidade atualizada com sucesso!');
+
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Erro ao atualizar unidade: ' . $e->getMessage()]);
+        }
+    }
 }

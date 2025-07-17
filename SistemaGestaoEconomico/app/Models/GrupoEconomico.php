@@ -23,6 +23,11 @@ class GrupoEconomico extends Model
         return $this->belongsTo(GrupoEconomico::class, 'id_grupo', 'id_grupo');
     }
 
+    public function bandeiras()
+    {
+        return $this->hasMany(Bandeira::class, 'id_grupo', 'id_grupo');
+    }
+
     public function usuarios()
     {
         return $this->belongsToMany(User::class, 'grupo_economico_user', 'id_grupo', 'user_id');

@@ -28,7 +28,7 @@ class Bandeira extends Model
 
     public function unidades()
     {
-        return $this->hasMany(Unidade::class, 'bandeira_id', 'id_bandeira');
+        return $this->hasMany(Unidade::class, 'id_bandeira', 'id_bandeira');
     }
 }
 

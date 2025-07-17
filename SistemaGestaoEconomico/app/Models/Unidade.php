@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Http\Controllers\BandeiraController;
 use Illuminate\Database\Eloquent\Model;
 
 class Unidade extends Model
@@ -10,7 +9,6 @@ class Unidade extends Model
     protected $table = "Unidade";
 
     protected $primaryKey = "id_unidade";
-
 
     protected $fillable = [
         "nome_fantasia",
@@ -26,5 +24,10 @@ class Unidade extends Model
     public function bandeira()
     {
         return $this->belongsTo(Bandeira::class, 'id_bandeira', 'id_bandeira');
+    }
+
+    public function colaboradores()
+    {
+        return $this->hasMany(Colaborador::class, 'id_unidade', 'id_unidade');
     }
 }

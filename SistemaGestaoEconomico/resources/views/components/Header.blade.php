@@ -13,11 +13,11 @@
 <body>
     <header>
         <nav class="navBar">
-            <a href="/view/mainPanel">Início</a>
             <a href="/view/grupoEconomico">Grupos Ecônomicos</a>
             <a href="/view/bandeiras">Bandeiras Comerciais</a>
             <a href="/view/unidades">Unidades</a>
             <a href="/view/colaboradores">Colaboradores</a>
+            <a href="/view/colaboradores">Relatórios</a>
         </nav>
         
     </header>

@@ -15,7 +15,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'http://localhost:8080/grupoEconomico',
             'http://localhost:8080/bandeira',
             'http://localhost:8080/bandeiras',
-            'http://localhost:8080/unidades'
+            'http://localhost:8080/unidades',
+            'http://localhost:8080/colaborador'
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

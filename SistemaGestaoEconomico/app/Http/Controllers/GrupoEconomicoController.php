@@ -17,7 +17,7 @@ class GrupoEconomicoController extends Controller
 
     public function exibirGrupos()
     {
-        $grupos = auth()->user()->gruposEconomicos;
+        $grupos = GrupoEconomico::all();
         return view('layout.grupoEconomico', compact('grupos'));
     }
 
@@ -39,29 +39,16 @@ class GrupoEconomicoController extends Controller
     {
         $dados = $request->validate([
             'nome_grupo' => 'required|string|max:50',
-            'usuario' => 'required|string',
-            'senha' => 'required|string',
         ]);
 
-        // Buscar o usuário manualmente
-        $usuarioVerificado = User::where('username', $dados['usuario'])->first();
-
-        if (!$usuarioVerificado || !Hash::check($dados['senha'], $usuarioVerificado->password)) {
-            return redirect()->back()->with('erro', 'Usuário ou senha incorretos.');
-        }
-
         try {
-            $grupo = GrupoEconomico::create([
+            GrupoEconomico::create([
                 'nome_grupo' => $dados["nome_grupo"],
                 'data_criacao' => Carbon::now(),
                 'ultima_atualizacao' => Carbon::now(),
             ]);
 
-            // Aqui associa ao usuário logado de verdade (que está na sessão)
-            $usuarioLogado = Auth::user();
-            $usuarioLogado->gruposEconomicos()->attach($grupo->id);
-
-            return redirect()->back()->with('mensagem', 'Grupo criado e associado ao seu usuário!');
+            return redirect()->back()->with('mensagem', 'Grupo criado!');
         } catch (QueryException $e) {
             return redirect()->back()->with('erro', 'Erro ao inserir no banco: ' . $e->getMessage());
         } catch (Exception $e) {
@@ -110,7 +97,7 @@ class GrupoEconomicoController extends Controller
         try {
             $idDelete = $request->get("id");
 
-            $grupo = GrupoEconomico::find($idDelete);
+            $grupo = GrupoEconomico::with('bandeiras.unidades.colaboradores')->find($idDelete);
 
             if (!$grupo) {
                 return response()->json([
@@ -118,18 +105,55 @@ class GrupoEconomicoController extends Controller
                 ]);
             }
 
+            foreach ($grupo->bandeiras as $bandeira) {
+                foreach ($bandeira->unidades as $unidade) {
+                    $unidade->colaboradores()->delete();
+                }
+                $bandeira->unidades()->delete();
+            }
+
+            $grupo->bandeiras()->delete();
+
             $grupo->delete();
 
-            return response()->json([
-                'mensagem' => 'Grupo econômico deletado com sucesso.'
-            ], 200);
+            return redirect()->back()->with('mensagem', 'Grupo Excluido!');
 
         } catch (Exception $e) {
             return response()->json([
                 'mensagem' => 'Erro ao deletar o grupo econômico.',
                 'erro' => $e->getMessage()
             ], 500);
+        }
+    }
 
+
+    public function updateGrupoEconomico(Request $request)
+    {
+        try {
+            $id = $request->get("id_grupo");
+
+            $request->validate([
+                'nome_grupo' => 'required|string|max:50',
+            ]);
+
+            $grupo = GrupoEconomico::find($id);
+
+            if (!$grupo) {
+                return response()->json([
+                    'mensagem' => "Grupo não encontrado."
+                ], 404);
+            }
+
+            $grupo->nome_grupo = $request->input('nome_grupo');
+            $grupo->save();
+
+            return redirect()->back()->with('mensagem', 'Grupo Atualizado!');
+
+        } catch (Exception $e) {
+            return response()->json([
+                'mensagem' => 'Erro ao atualizar grupo.',
+                'erro' => $e->getMessage()
+            ], 500);
         }
     }
 }

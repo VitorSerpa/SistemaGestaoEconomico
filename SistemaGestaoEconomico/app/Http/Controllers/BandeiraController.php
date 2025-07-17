@@ -51,9 +51,8 @@ class BandeiraController extends Controller
 
             $unidade->delete();
 
-            return response()->json([
-                'mensagem' => 'Bandeira deletada com sucesso.'
-            ], 200);
+            return redirect()->back()->with('mensagem', 'Bandeira deletado com sucesso!');
+
 
         } catch (Exception $e) {
             return response()->json([
@@ -64,12 +63,42 @@ class BandeiraController extends Controller
 
     }
 
+    public function updateBandeira(Request $request)
+    {
+        try {
+            $id = $request->get('id_bandeira');
+
+            $dadosValidados = $request->validate([
+                'novo_nome' => 'required|string|max:50',
+                'id_grupo_economico' => 'required|integer|',
+            ]);
+
+            $bandeira = Bandeira::find($id);
+
+            if (!$bandeira) {
+                return response()->json([
+                    'mensagem' => 'Bandeira não encontrada.'
+                ], 404);
+            }
+
+            $bandeira->nome_bandeira = $dadosValidados['novo_nome'];
+            $bandeira->id_grupo = $dadosValidados['id_grupo_economico'];
+            $bandeira->save();
+
+            return redirect()->back()->with('mensagem', 'Bandeira atualizada com sucesso!');
+
+        } catch (Exception $e) {
+            return response()->json([
+                'mensagem' => 'Erro ao atualizar bandeira.',
+                'erro' => $e->getMessage()
+            ], 500);
+        }
+    }
+
     public function exibirBandeiras()
     {
-        $user = auth()->user();
-        $grupos = $user->gruposEconomicos()->pluck('grupoEconomico.id_grupo')->toArray();
-        $bandeiras = Bandeira::whereIn('id_grupo', $grupos)->with('grupo')->get();
-        $grupos = GrupoEconomico::whereIn('id_grupo', $grupos)->get();
+        $bandeiras = Bandeira::with('grupo')->get();
+        $grupos = GrupoEconomico::all();
 
         return view('layout.bandeiras', compact('bandeiras', 'grupos'));
     }
