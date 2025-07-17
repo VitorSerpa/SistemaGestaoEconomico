@@ -13,7 +13,15 @@ Um sistema completo de gestão com hierarquia entre **Grupos Econômicos**, **Ba
 - JavaScript
 - Blade
 ---
-
+## ✅ Funcionalidades
+- CRUD completo de Grupos Econômicos
+- CRUD completo de Bandeiras
+- CRUD completo de Unidades
+- CRUD completo de Colaboradores
+- Registro de movimentações no sistema
+- Filtro de pesquisa nos campos
+- Frontend moderno e intuitivo
+  
 ## 🖥️ Pré-requisitos
 
 Certifique-se de que os seguintes softwares estão instalados:
